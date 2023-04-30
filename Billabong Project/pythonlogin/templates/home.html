@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+  <h2>Home Page</h2>
+  <p>Welcome back, {{ username }}!</p>
+  <!-- Add the first picture (profile picture) -->
+  <div style="text-align:center;">
+    <h3>Your ID Card Profile Picture</h3>
+    <img src="{{ url_for('static', filename= 'data/' + username + '.jpg') }}" alt="Profile Picture">
+  </div>
+  <!-- Add the second picture (face detection result) -->
+  <div style="text-align:center;">
+    <h3>Face Detection Result</h3>
+    <img src="{{ url_for('static', filename= 'HaarProfile/'+ username + '.jpg') }}" alt="Face Detection Result">
+  </div>
+
+  <!-- Add the third section (face comparison score) -->
+  <div style="text-align:center;">
+    <h3>Face Comparison Score</h3>
+      {% if match is not none: %}
+      {% if match %}
+        {% set score = confidence %}
+        <p>The confidence score for the face comparison is {{ score }}.</p>
+      {% else %}
+        <p>The confidence score for the face comparison is below the threshold.</p>
+      {% endif %}
+    {% else %}
+      <p>No comparison was made.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
